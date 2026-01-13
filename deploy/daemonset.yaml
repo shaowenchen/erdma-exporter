@@ -1,0 +1,119 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: erdma-exporter
+  namespace: monitoring
+  labels:
+    app: erdma-exporter
+    component: exporter
+spec:
+  selector:
+    matchLabels:
+      app: erdma-exporter
+  template:
+    metadata:
+      labels:
+        app: erdma-exporter
+        component: exporter
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9101"
+        prometheus.io/path: "/metrics"
+    spec:
+      nodeSelector:
+        erdma: "true"
+      hostNetwork: true
+      hostPID: true
+      hostIPC: true
+      containers:
+      - name: erdma-exporter
+        image: registry.cn-beijing.aliyuncs.com/opshub/shaowenchen-erdma-exporter:latest
+        imagePullPolicy: Always
+        env:
+        - name: NODE_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.nodeName
+        ports:
+        - name: metrics
+          containerPort: 9101
+          protocol: TCP
+        args:
+        - --web.listen-address=:9101
+        - --web.telemetry-path=/metrics
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "50m"
+          limits:
+            memory: "128Mi"
+            cpu: "200m"
+        livenessProbe:
+          httpGet:
+            path: /metrics
+            port: metrics
+          initialDelaySeconds: 10
+          periodSeconds: 30
+          timeoutSeconds: 5
+        readinessProbe:
+          httpGet:
+            path: /metrics
+            port: metrics
+          initialDelaySeconds: 5
+          periodSeconds: 10
+          timeoutSeconds: 5
+        securityContext:
+          privileged: true
+          capabilities:
+            add:
+            - SYS_ADMIN
+            - NET_ADMIN
+        volumeMounts:
+        - name: dev-infiniband
+          mountPath: /dev/infiniband
+          readOnly: false
+        - name: sys-class-infiniband
+          mountPath: /sys/class/infiniband
+          readOnly: true
+        - name: sys-bus-pci
+          mountPath: /sys/bus/pci
+          readOnly: true
+        - name: sys-devices
+          mountPath: /sys/devices
+          readOnly: true
+      volumes:
+      - name: dev-infiniband
+        hostPath:
+          path: /dev/infiniband
+          type: Directory
+      - name: sys-class-infiniband
+        hostPath:
+          path: /sys/class/infiniband
+          type: Directory
+      - name: sys-bus-pci
+        hostPath:
+          path: /sys/bus/pci
+          type: Directory
+      - name: sys-devices
+        hostPath:
+          path: /sys/devices
+          type: Directory
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: erdma-exporter
+  namespace: monitoring
+  labels:
+    app: erdma-exporter
+    component: exporter
+spec:
+  type: ClusterIP
+  ports:
+  - name: metrics
+    port: 9101
+    targetPort: metrics
+    protocol: TCP
+  selector:
+    app: erdma-exporter
+
