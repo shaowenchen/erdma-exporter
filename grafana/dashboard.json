@@ -101,7 +101,7 @@
             "type": "prometheus",
             "uid": "$datasource"
           },
-          "expr": "rate(erdma_hw_tx_bytes_total{cluster=\"$cluster\", node=~\"$node\"}[5m])",
+          "expr": "rate(erdma_hw_tx_bytes_total{cluster=\"$cluster\", node=~\"$node\"}[30s])",
           "refId": "A",
           "legendFormat": "{{node}}/{{device}} TX"
         },
@@ -110,7 +110,7 @@
             "type": "prometheus",
             "uid": "$datasource"
           },
-          "expr": "rate(erdma_hw_rx_bytes_total{cluster=\"$cluster\", node=~\"$node\"}[5m])",
+          "expr": "rate(erdma_hw_rx_bytes_total{cluster=\"$cluster\", node=~\"$node\"}[30s])",
           "refId": "B",
           "legendFormat": "{{node}}/{{device}} RX"
         }
@@ -197,7 +197,7 @@
             "type": "prometheus",
             "uid": "$datasource"
           },
-          "expr": "rate(erdma_hw_tx_packets_total{cluster=\"$cluster\", node=~\"$node\"}[5m])",
+          "expr": "rate(erdma_hw_tx_packets_total{cluster=\"$cluster\", node=~\"$node\"}[30s])",
           "refId": "A",
           "legendFormat": "{{node}}/{{device}} TX"
         },
@@ -206,7 +206,7 @@
             "type": "prometheus",
             "uid": "$datasource"
           },
-          "expr": "rate(erdma_hw_rx_packets_total{cluster=\"$cluster\", node=~\"$node\"}[5m])",
+          "expr": "rate(erdma_hw_rx_packets_total{cluster=\"$cluster\", node=~\"$node\"}[30s])",
           "refId": "B",
           "legendFormat": "{{node}}/{{device}} RX"
         }
@@ -413,7 +413,7 @@
             "type": "prometheus",
             "uid": "$datasource"
           },
-          "expr": "rate(erdma_connect_success_total{cluster=\"$cluster\", node=~\"$node\"}[5m])",
+          "expr": "rate(erdma_connect_success_total{cluster=\"$cluster\", node=~\"$node\"}[30s])",
           "refId": "A",
           "legendFormat": "{{node}}/{{device}} Success"
         },
@@ -422,7 +422,7 @@
             "type": "prometheus",
             "uid": "$datasource"
           },
-          "expr": "rate(erdma_connect_failed_total{cluster=\"$cluster\", node=~\"$node\"}[5m])",
+          "expr": "rate(erdma_connect_failed_total{cluster=\"$cluster\", node=~\"$node\"}[30s])",
           "refId": "B",
           "legendFormat": "{{node}}/{{device}} Failed"
         }
@@ -509,7 +509,7 @@
             "type": "prometheus",
             "uid": "$datasource"
           },
-          "expr": "rate(erdma_hw_tx_requests_total{cluster=\"$cluster\", node=~\"$node\"}[5m])",
+          "expr": "rate(erdma_hw_tx_requests_total{cluster=\"$cluster\", node=~\"$node\"}[30s])",
           "refId": "A",
           "legendFormat": "{{node}}/{{device}}"
         }
@@ -596,7 +596,7 @@
             "type": "prometheus",
             "uid": "$datasource"
           },
-          "expr": "rate(erdma_cmdq_submitted_total{cluster=\"$cluster\", node=~\"$node\"}[5m])",
+          "expr": "rate(erdma_cmdq_submitted_total{cluster=\"$cluster\", node=~\"$node\"}[30s])",
           "refId": "A",
           "legendFormat": "{{node}}/{{device}} Submitted"
         },
@@ -605,7 +605,7 @@
             "type": "prometheus",
             "uid": "$datasource"
           },
-          "expr": "rate(erdma_cmdq_completed_total{cluster=\"$cluster\", node=~\"$node\"}[5m])",
+          "expr": "rate(erdma_cmdq_completed_total{cluster=\"$cluster\", node=~\"$node\"}[30s])",
           "refId": "B",
           "legendFormat": "{{node}}/{{device}} Completed"
         }
