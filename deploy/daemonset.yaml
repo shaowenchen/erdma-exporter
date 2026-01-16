@@ -27,7 +27,7 @@ spec:
       hostIPC: true
       containers:
       - name: erdma-exporter
-        image: registry.cn-beijing.aliyuncs.com/opshub/shaowenchen-erdma-exporter:latest
+        image: shaowenchen/erdma-exporter:latest
         imagePullPolicy: Always
         env:
         - name: NODE_NAME
