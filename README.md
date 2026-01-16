@@ -27,7 +27,6 @@ docker build -t shaowenchen/erdma-exporter:latest .
 ### Kubernetes
 
 ```bash
-kubectl create namespace monitoring
 kubectl apply -f deploy/daemonset.yaml
 kubectl apply -f deploy/servicemonitor.yaml
 ```
@@ -145,12 +144,12 @@ kubectl apply -f deploy/servicemonitor.yaml
 
 查询发送速率：
 ```promql
-rate(erdma_hw_tx_bytes_total{device="erdma_0"}[5m])
+rate(erdma_hw_tx_bytes_total{device="erdma_0"}[30s])
 ```
 
 查询连接失败率：
 ```promql
-rate(erdma_connect_failed_total[5m]) / rate(erdma_connect_total[5m])
+rate(erdma_connect_failed_total[30s]) / rate(erdma_connect_total[30s])
 ```
 
 ## Grafana Dashboard

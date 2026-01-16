@@ -8,6 +8,9 @@ metadata:
     component: exporter
     ops: "true"
 spec:
+  namespaceSelector:
+    matchNames:
+    - kube-system
   selector:
     matchLabels:
       app: erdma-exporter
